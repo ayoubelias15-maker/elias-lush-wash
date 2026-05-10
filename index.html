@@ -475,7 +475,7 @@
           <input type="tel" id="phone" placeholder="(902) 555-0123" />
         </div>
         <div class="form-group">
-          <label>Email Address</label>
+          <label>Email Address <span style="color:var(--text-muted);font-size:0.72rem;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
           <input type="email" id="email" placeholder="john@email.com" />
         </div>
       </div>
@@ -558,6 +558,18 @@
   });
 
   document.getElementById('submitBtn').addEventListener('click', function() {
+    // Basic validation (email optional)
+    var required = ['firstName','lastName','phone','service','date','time','address'];
+    var names = {'firstName':'First Name','lastName':'Last Name','phone':'Phone','service':'Service','date':'Date','time':'Time','address':'Address'};
+    for (var i = 0; i < required.length; i++) {
+      var el = document.getElementById(required[i]);
+      if (!el.value || !el.value.trim()) {
+        el.style.borderColor = '#e05a5a';
+        setTimeout(function(e){ e.style.borderColor=''; }.bind(null,el), 2000);
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+    }
     // Show success immediately like before
     document.getElementById('bookingForm').style.display = 'none';
     document.getElementById('successMsg').classList.add('show');
